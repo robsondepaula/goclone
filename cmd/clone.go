@@ -33,7 +33,7 @@ func cloneSite(ctx context.Context, args []string) error {
 				if i := strings.IndexByte(f, '='); i >= 0 {
 					k, v = f[:i], strings.TrimRight(f[i+1:], ";")
 				} else {
-					return fmt.Errorf("No = in cookie %q", c)
+					return fmt.Errorf("no = in cookie %q", c)
 				}
 				cs = append(cs, &http.Cookie{Name: k, Value: v})
 			}
@@ -74,10 +74,12 @@ func cloneSite(ctx context.Context, args []string) error {
 
 	}
 	if Serve {
-		cmd := exec.CommandContext(ctx, "open", "http://localhost:5000")
-		if err := cmd.Start(); err != nil {
-			return fmt.Errorf("%v: %w", cmd.Args, err)
-		}
+		/*
+			cmd := exec.CommandContext(ctx, "open", "http://localhost:5000")
+			if err := cmd.Start(); err != nil {
+				return fmt.Errorf("%v: %w", cmd.Args, err)
+			}
+		*/
 		return server.Serve(firstProject)
 	} else if Open {
 		// automatically open project
